@@ -1,5 +1,6 @@
 import { Database } from "./database.js"
 import { buildRoutePath } from "./utils/buildRoutePath.js"
+import { formatedErrorReturn } from "./utils/formatedErrorReturn.js"
 import { getCurrentDateWithoutHours } from './utils/getCurrentDateWithoutHours.js'
 
 const date = new Date()
@@ -53,13 +54,7 @@ export const routes = [
         res.statusCode = 201
         res.end()
       } catch (error) {
-
-        const errorReturn = {
-          message: error.message
-        }
-
-        res.statusCode = 409
-        res.end(JSON.stringify(errorReturn))
+        res.end(formatedErrorReturn(req, res, 409, errorReturn))
       }
     }
   },
@@ -76,9 +71,7 @@ export const routes = [
           message: "Só é possível modificar title ou description"
         }
 
-        res.statusCode = 400
-
-        return res.end(JSON.stringify(errorReturn))
+        res.end(formatedErrorReturn(req, res, 400, errorReturn))
       }
 
       try {
@@ -92,13 +85,7 @@ export const routes = [
 
         res.end();
       } catch (error) {
-        const errorReturn = {
-          message: error.message
-        }
-
-        res.statusCode = 404
-
-        res.end(JSON.stringify(errorReturn))
+        res.end(formatedErrorReturn(req, res, 404, error))
       }
     }
   },
@@ -116,13 +103,7 @@ export const routes = [
         res.end()
       }
       catch (error) {
-        const errorReturn = {
-          message: error.message
-        }
-
-        res.statusCode = 404
-
-        res.end(JSON.stringify(errorReturn))
+        res.end(formatedErrorReturn(req, res, 404, error))
       }
     }
   },
@@ -138,13 +119,7 @@ export const routes = [
         res.end()
       }
       catch (error) {
-        const errorReturn = {
-          message: error.message
-        }
-
-        res.statusCode = 404
-
-        res.end(JSON.stringify(errorReturn))
+        res.end(formatedErrorReturn(req, res, 404, error))
       }
     }
   },
